@@ -16,7 +16,6 @@ import ErrorScreen from './ErrorScreen'
 const DashboardScreen = () => {
 
     useEffect(() => {
-
         hasLocationPermission() && getCurrentLocation()
     }, [])
 

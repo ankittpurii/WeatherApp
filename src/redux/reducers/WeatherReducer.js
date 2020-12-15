@@ -1,5 +1,5 @@
 import {
-    LOADING_STATUS,
+    SET_WEATHER_DATA
 } from '../types';
 
 const INITIAL_STATE = {
@@ -8,8 +8,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case LOADING_STATUS:
-            return { ...state, loadingStatus: action.payload };
+        case SET_WEATHER_DATA:
+            return { ...state, weatherList: action.payload };
         default:
             return state;
     }

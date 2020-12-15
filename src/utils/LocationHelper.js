@@ -2,18 +2,21 @@ import Geolocation from 'react-native-geolocation-service';
 
 
 export const getCurrentLocation = () => {
-    
-    Geolocation.getCurrentPosition(
-        (position) => {
-            console.log(position);
-        },
-        (error) => {
-            // See error code charts below.
-            console.log(error.code, error.message);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
-
-}
+    return new Promise((resolve, reject) => {
+        Geolocation.getCurrentPosition(
+            (position) => {
+                resolve({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            },
+            async (error) => {
+                if (error.code == error.POSITION_UNAVAILABLE || error.code === error.TIMEOUT)
+                    reject(error.message)
+            },
+            { enableHighAccuracy: true, timeout: 15000 },
+        );
+    });
+};
 
 

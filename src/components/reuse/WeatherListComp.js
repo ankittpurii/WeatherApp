@@ -5,14 +5,17 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import { getDay } from '../../utils/Constants'
 
-const WeatherListComp = () => {
+const WeatherListComp = (props) => {
+
+    const item = props?.item
 
     return (
         <View style={styles.listView}>
-            <Text style={styles.textStyle}>Monday</Text>
+            <Text style={styles.textStyle}>{getDay(item?.dt)}</Text>
             <View style={styles.tempCount}>
-                <Text style={styles.textStyle}>8</Text>
+                <Text style={styles.textStyle}>{item?.temp?.day}</Text>
             </View>
         </View >
     );

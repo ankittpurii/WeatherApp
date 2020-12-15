@@ -1,40 +1,69 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
     FlatList,
     StyleSheet
 } from 'react-native';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getWeatherForecast } from '../../redux/actions/getWeatherDetailAction';
+import { executeGetRequest } from '../../utils/APIUtils';
 import { getCurrentLocation } from '../../utils/LocationHelper';
 import { hasLocationPermission } from '../../utils/PermissionHelper';
 import Loader from '../reuse/Loader';
 import WeatherListComp from '../reuse/WeatherListComp'
 import ErrorScreen from './ErrorScreen'
 
+/**
+ * Landing screen of the application
+ */
 const DashboardScreen = () => {
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        hasLocationPermission() && getCurrentLocation()
+        getWeatherDetails()
     }, [])
 
-    return (
-        // <ErrorScreen/>
-        <View style={styles.container}>
-            <View style={styles.headerViewStyle}>
-                <Text style={styles.todayTempFont}>10</Text>
-                <Text style={styles.todayTempFont}>Delhi</Text>
-            </View>
-            <FlatList
-                data={[1, 2, 3, 4, 5]}
-                renderItem={({ item }) => <WeatherListComp />
-                }
-                style={styles.container} />
-           
+    const loadingStatus = useSelector((state) => state.loadingReducer.loadingStatus);
+    const weatherList = useSelector((state) => state.WeatherReducer.weatherList);
+    const [error, setError] = useState(undefined)
 
-            {/* <Loader /> */}
-        </View>
+    const getWeatherDetails = async () => {
+        if (hasLocationPermission()) {
+            const coords = await getCurrentLocation()
+            const weatherData = await dispatch(getWeatherForecast(coords))
+            if (weatherData?.error)
+                setError(weatherData?.error)
+
+        }
+    }
+
+    const getMainView = () => {
+        if (loadingStatus)
+            return <Loader />
+        else if (error)
+            return <ErrorScreen
+                onRetryClick={getWeatherDetails}
+            />
+        else
+            return <View style={styles.container}>
+                <View style={styles.headerViewStyle}>
+                    <Text style={styles.todayTempFont}>{weatherList[0]?.temp?.day}</Text>
+                    <Text style={styles.todayTempFont}>Delhi</Text>
+                </View>
+                <FlatList
+                    data={weatherList.slice(1, 6)}
+                    renderItem={({ item }) => <WeatherListComp item={item} />
+                    }
+                    style={styles.container} />
+            </View>
+    }
+
+    return (
+        getMainView()
+
     );
 };
 

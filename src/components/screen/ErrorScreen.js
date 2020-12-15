@@ -1,12 +1,14 @@
-
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import config from '../../utils/config'
 
-const ErrorScreen = () => {
+const ErrorScreen = (props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.errorMesage}>Something Went Wrong at our End</Text>
-            <TouchableOpacity style={styles.retryButtonStyle}>
+            <Text style={styles.errorMesage}>{config.constants.ERROR_MSG}</Text>
+            <TouchableOpacity
+                onPress={props?.onRetryClick}
+                style={styles.retryButtonStyle}>
                 <Text>Retry</Text>
             </TouchableOpacity>
         </View>
@@ -16,9 +18,9 @@ const ErrorScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 10,
+        padding: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     errorMesage: {

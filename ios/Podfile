@@ -11,6 +11,9 @@ target 'WeatherApp' do
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
 
+
+
+
   target 'WeatherAppTests' do
     inherit! :complete
     # Pods for testing

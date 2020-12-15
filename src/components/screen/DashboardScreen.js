@@ -11,6 +11,7 @@ import { getCurrentLocation } from '../../utils/LocationHelper';
 import { hasLocationPermission } from '../../utils/PermissionHelper';
 import WeatherListComp from '../reuse/WeatherListComp'
 import ErrorScreen from './ErrorScreen'
+import LottieView from 'lottie-react-native'
 
 const DashboardScreen = () => {
 
@@ -35,6 +36,22 @@ const DashboardScreen = () => {
                 renderItem={({ item }) => <WeatherListComp />
                 }
                 style={styles.container} />
+            {/* <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex:1
+            }}>
+                <LottieView
+                    style={{
+                        height: 300,
+                        width: 300
+                    }}
+                    source={require("../../assets/Loader.json")}
+                    autoPlay
+                    loop
+                />
+            </View> */}
+
         </View>
     );
 };

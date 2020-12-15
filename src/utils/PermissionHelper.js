@@ -1,15 +1,10 @@
 import { check, RESULTS, request, PERMISSIONS } from 'react-native-permissions';
-import { Linking, Platform, PermissionsAndroid } from 'react-native';       
-
-export const PERMISSION_DENIED = -1;
-export const PERMISSION_SUCCESS = 1;
-export const PERMISSION_BLOCKED = 0;
+import { Linking, Platform, PermissionsAndroid } from 'react-native';
 
 export const requestPermission = async (permission) => {
   let result = await request(permission);
-  if (result) {
-    Log(result);
-  } else Log('error');
+  if (result)
+    console.log(result);
 };
 
 export const LOCATION_PERMISSION = {

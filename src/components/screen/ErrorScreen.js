@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import config from '../../utils/config'
 
+/**
+ * will return the UI of Error screen if any issue is occured
+ */
 const ErrorScreen = (props) => {
     return (
         <View style={styles.container}>
@@ -22,7 +25,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     errorMesage: {
         fontSize: 30,
         fontWeight: 'bold'

@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { getWeatherForecast } from '../../redux/actions/getWeatherDetailAction';
-import { executeGetRequest } from '../../utils/APIUtils';
 import { getCurrentLocation } from '../../utils/LocationHelper';
 import { hasLocationPermission } from '../../utils/PermissionHelper';
 import Loader from '../reuse/Loader';
@@ -30,16 +29,21 @@ const DashboardScreen = () => {
     const weatherList = useSelector((state) => state.WeatherReducer.weatherList);
     const [error, setError] = useState(undefined)
 
+    /**
+     * get Weathers Details from API 
+     */
     const getWeatherDetails = async () => {
         if (hasLocationPermission()) {
             const coords = await getCurrentLocation()
             const weatherData = await dispatch(getWeatherForecast(coords))
             if (weatherData?.error)
                 setError(weatherData?.error)
-
         }
     }
 
+    /**
+     * return main view of the screen
+     */
     const getMainView = () => {
         if (loadingStatus)
             return <Loader />
@@ -63,7 +67,6 @@ const DashboardScreen = () => {
 
     return (
         getMainView()
-
     );
 };
 

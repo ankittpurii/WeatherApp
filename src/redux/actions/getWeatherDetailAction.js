@@ -2,6 +2,10 @@ import { executeGetRequest } from '../../utils/APIUtils';
 import { LOADING_STATUS, SET_WEATHER_DATA } from '../types'
 import config from '../../utils/config'
 
+/**
+ * hit APi to get weather data and set it to the reducer
+ * @param {*} coords - lat,long
+ */
 export const getWeatherForecast = (coords) => {
     return async (dispatch) => {
         try {
@@ -19,6 +23,10 @@ export const getWeatherForecast = (coords) => {
     };
 };
 
+/**
+ * 
+ * @param {*} list - array of forecast weather of weekdays
+ */
 const setWeatherData = (list) => {
     return {
         type: SET_WEATHER_DATA,
@@ -26,6 +34,10 @@ const setWeatherData = (list) => {
     };
 }
 
+/**
+ * 
+ * @param {*} loading - loading status
+ */
 const setLoading = (loading) => {
     return {
         type: LOADING_STATUS,

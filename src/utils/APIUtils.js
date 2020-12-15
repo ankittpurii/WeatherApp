@@ -8,7 +8,6 @@ export const executeGetRequest = async (endPoint) => {
     })
 
     const apiRes = api.get(endPoint)
-    console.log(apiRes, "apiRes")
     return apiRes
 }
 

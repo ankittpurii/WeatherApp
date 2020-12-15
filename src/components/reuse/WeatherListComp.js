@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import { getDay } from '../../utils/Constants'
 
+/**
+ * Return the UI of list component on Dashboard screen
+ */
 const WeatherListComp = (props) => {
 
     const item = props?.item

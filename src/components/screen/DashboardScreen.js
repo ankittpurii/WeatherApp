@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux'
 import { getWeatherForecast } from '../../redux/actions/getWeatherDetailAction';
+import { getDay } from '../../utils/Constants';
 import { getCurrentLocation } from '../../utils/LocationHelper';
 import { hasLocationPermission } from '../../utils/PermissionHelper';
 import Loader from '../reuse/Loader';
@@ -33,12 +34,15 @@ const DashboardScreen = () => {
      * get Weathers Details from API 
      */
     const getWeatherDetails = async () => {
-        if (hasLocationPermission()) {
+        const permissionGranted = await hasLocationPermission()
+        if (permissionGranted) {
             const coords = await getCurrentLocation()
             const weatherData = await dispatch(getWeatherForecast(coords))
             if (weatherData?.error)
                 setError(weatherData?.error)
         }
+        else
+            setError("Location Error")
     }
 
     /**
@@ -55,12 +59,13 @@ const DashboardScreen = () => {
             return <View style={styles.container}>
                 <View style={styles.headerViewStyle}>
                     <Text style={styles.todayTempFont}>{weatherList[0]?.temp?.day}</Text>
-                    <Text style={styles.todayTempFont}>Delhi</Text>
+                    <Text style={styles.todayTempFont}>{getDay(weatherList[0]?.dt)}</Text>
                 </View>
                 <FlatList
                     data={weatherList.slice(1, 6)}
                     renderItem={({ item }) => <WeatherListComp item={item} />
                     }
+                    keyExtractor={(item, index) => index.toString()}
                     style={styles.container} />
             </View>
     }

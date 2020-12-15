@@ -9,15 +9,11 @@ import {
 import { useSelector } from 'react-redux'
 import { getCurrentLocation } from '../../utils/LocationHelper';
 import { hasLocationPermission } from '../../utils/PermissionHelper';
+import Loader from '../reuse/Loader';
 import WeatherListComp from '../reuse/WeatherListComp'
 import ErrorScreen from './ErrorScreen'
-import LottieView from 'lottie-react-native'
 
 const DashboardScreen = () => {
-
-    const loadingStatus = useSelector((state) => {
-        console.log(state, "state")
-    });
 
     useEffect(() => {
 
@@ -36,22 +32,9 @@ const DashboardScreen = () => {
                 renderItem={({ item }) => <WeatherListComp />
                 }
                 style={styles.container} />
-            {/* <View style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex:1
-            }}>
-                <LottieView
-                    style={{
-                        height: 300,
-                        width: 300
-                    }}
-                    source={require("../../assets/Loader.json")}
-                    autoPlay
-                    loop
-                />
-            </View> */}
+           
 
+            {/* <Loader /> */}
         </View>
     );
 };
@@ -71,4 +54,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default DashboardScreen;
+export default DashboardScreen
